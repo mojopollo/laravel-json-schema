@@ -1,0 +1,19 @@
+{
+  "users": {
+      "email": "string:nullable:index",
+      "password": "string:nullable:index",
+      "phone": "string:nullable",
+      "is_guest": "boolean:index",
+      "first_name": "string:nullable",
+      "last_name": "string:nullable",
+      "address": "string:nullable",
+      "city": "string:nullable",
+      "state": "string:nullable",
+      "zipcode": "string:nullable",
+      "country": "string:nullable",
+      "last_ip_address": "string:nullable",
+      "last_user_agent": "string:nullable",
+      "last_coordinates": "string:nullable",
+      "active_at": "timestamp:nullable:index"
+  }
+}

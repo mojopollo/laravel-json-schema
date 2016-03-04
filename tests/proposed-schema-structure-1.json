@@ -1,0 +1,69 @@
+{
+  "tables": [
+    {
+      "name": "users",
+      "fields": [
+        {
+          "name": "email",
+          "type": "string:nullable:index"
+        },
+        {
+          "name": "password",
+          "type": "string:nullable:index"
+        },
+        {
+          "name": "phone",
+          "type": "string:nullable"
+        },
+        {
+          "name": "is_guest",
+          "type": "boolean:index"
+        },
+        {
+          "name": "first_name",
+          "type": "string:nullable"
+        },
+        {
+          "name": "last_name",
+          "type": "string:nullable"
+        },
+        {
+          "name": "address",
+          "type": "string:nullable"
+        },
+        {
+          "name": "city",
+          "type": "string:nullable"
+        },
+        {
+          "name": "state",
+          "type": "string:nullable"
+        },
+        {
+          "name": "zipcode",
+          "type": "string:nullable"
+        },
+        {
+          "name": "country",
+          "type": "string:nullable"
+        },
+        {
+          "name": "last_ip_address",
+          "type": "string:nullable"
+        },
+        {
+          "name": "last_user_agent",
+          "type": "string:nullable"
+        },
+        {
+          "name": "last_coordinates",
+          "type": "string:nullable"
+        },
+        {
+          "name": "active_at",
+          "type": "timestamp:nullable:index"
+        }
+      ]
+    }
+  ]
+}
