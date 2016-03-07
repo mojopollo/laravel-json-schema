@@ -2,8 +2,8 @@
 Laravel Database Schema in JSON
 ========================
 
-Allows you to define your entire [Laravel](https://github.com/laravel/laravel) database schema in one JSON file
-then generate all the necessary migration files at once using Jeffrey Way's [Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended)
+Allows you to define your entire [Laravel](https://github.com/laravel/laravel) database schema in one JSON file then generates all the necessary migration files.
+This package makes use of Jeffrey Way's [Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended).
 
 - [Installation](#installation)
 - [Usage](#usage)
