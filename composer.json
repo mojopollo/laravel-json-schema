@@ -1,28 +1,29 @@
 {
-    "name": "mojopollo/laravel-json-schema",
-    "description": "Laravel Database Schema in JSON: Allows you to define your entire Laravel database schema in one JSON file then generates all the necessary migration files",
-    "keywords": ["mojopollo", "mojo", "laravel", "json", "schema", "database"],
-    "homepage": "http://localhost",
-    "license" : "MIT",
-    "authors": [
-        {
-            "name": "Jaime Medina",
-            "email": "jmedina@qujo.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "~5.0",
-        "laracasts/generators": "~1.1"
-    },
-    "require-dev": {
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "4.7.*"
-    },
-    "autoload": {
-        "psr-0": {
-            "Mojopollo\\Schema\\": "src"
-        }
-    },
-    "minimum-stability": "stable"
+  "name": "mojopollo/laravel-json-schema",
+  "description": "Laravel Database Schema in JSON: Allows you to define your entire Laravel database schema in one JSON file then generates all the necessary migration files",
+  "keywords": ["mojopollo", "mojo", "laravel", "json", "schema", "database"],
+  "homepage": "http://localhost",
+  "license" : "MIT",
+  "authors": [
+    {
+      "name": "Jaime Medina",
+      "email": "jmedina@qujo.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/support": "~5.0",
+    "illuminate/console": "~5.0",
+    "laracasts/generators": "~1.1"
+  },
+  "require-dev": {
+    "mockery/mockery": "0.9.*",
+    "phpunit/phpunit": "4.7.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Mojopollo\\Schema\\": "src"
+    }
+  },
+  "minimum-stability": "stable"
 }
