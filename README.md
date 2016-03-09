@@ -7,7 +7,6 @@ This package makes use of Jeffrey Way's [Extended Generators](https://github.com
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Changelog](CHANGELOG.md)
 
 <a id="installation"></a>
 ## Installation
@@ -17,17 +16,20 @@ This package makes use of Jeffrey Way's [Extended Generators](https://github.com
 Add this package to your `composer.json` file with the following command
 
 ```bash
-composer require mojopollo/laravel-json-schema
+composer require mojopollo/laravel-json-schema --dev
 ```
 
-#### Step 2: Update laravel 5.x `config/app.php` file
+#### Step 2: Add the service providers
 
-Add the following into the `providers` array:
+Add the following 2 service providers to your local enviroment only by modifying your ```app/Providers/AppServiceProvider.php``` as so:
 ```php
-```
-
-Add the following into the `aliases` array:
-```php
+public function register()
+{
+  if ($this->app->environment() == 'local') {
+    $this->app->register('Mojopollo\Schema\MakeMigrationJsonServiceProvider');
+    $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
+  }
+}
 ```
 
 <a id="usage"></a>
@@ -37,22 +39,22 @@ Create your JSON schema file and save as ```migration.json``` for example:
 ```json
 {
   "users": {
-      "email": "string:unique",
-      "password": "string:index",
-      "first_name": "string:nullable",
-      "last_name": "string:nullable",
-      "last_active_at": "timestamp:nullable:index"
+    "email": "string:unique",
+    "password": "string:index",
+    "first_name": "string:nullable",
+    "last_name": "string:nullable",
+    "last_active_at": "timestamp:nullable:index"
   },
   "categories": {
-      "name": "string:unique"
+    "name": "string:unique"
   }
 }
 ```
 
-You can now generate all of your defined migrations with the following command:
+You are now ready to generate all of your defined migrations with the following command and the path to your JSON file:
 
 ```bash
-php artisan make:migration:json --file=migration.json
+php artisan make:migration:json migration.json
 ```
 
 After this command executes you will see all the newly created migration files
