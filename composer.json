@@ -13,6 +13,7 @@
   "require": {
     "php": ">=5.4.0",
     "illuminate/support": "~5.0",
+    "illuminate/filesystem": "~5.0",
     "laracasts/generators": "~1.1"
   },
   "require-dev": {
