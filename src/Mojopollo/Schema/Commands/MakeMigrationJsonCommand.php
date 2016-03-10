@@ -60,7 +60,7 @@ class MakeMigrationJsonCommand extends Command
 
     // Temp action
     $this->call('make:migration:schema', [
-      'name' => 'create_mojo_table'
+      'name' => 'create_mojo_table',
       'schema' => 'pollo:string:unique'
     ]);
   }
