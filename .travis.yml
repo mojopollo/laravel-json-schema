@@ -8,7 +8,7 @@ php:
   - hhvm
 
 before_script:
-  - composer install --dev
+  - composer install
   - composer update -o
 
 script: phpunit --debug --bootstrap tests/bootstrap.php --configuration phpunit.xml tests
