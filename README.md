@@ -27,7 +27,7 @@ composer require mojopollo/laravel-json-schema --dev
 
 #### Step 2: Add the service providers
 
-Add the following 2 service providers to your local enviroment only by modifying your ```app/Providers/AppServiceProvider.php``` as so:
+Add the following 2 service providers to your local enviroment only, by modifying your ```app/Providers/AppServiceProvider.php``` as so:
 ```php
 public function register()
 {
@@ -60,7 +60,7 @@ Create your JSON schema file and save as ```migration.json``` for example:
 You are now ready to generate all of your defined migrations with the following command and the path to your JSON file:
 
 ```bash
-php artisan make:migration:json migration.json
+php artisan make:migration:json --file=migration.json
 ```
 
 After this command executes you will see all the newly created migration files

@@ -44,8 +44,19 @@ class MakeMigrationJsonCommand extends Command
    */
   public function fire()
   {
-    // Make the json migration
-    $this->makeJsonMigration();
+    // Make the json migration if file is specified
+    if ($this->filePath = $this->option('file')) {
+      $this->makeJsonMigration();
+    }
+
+    // If no action options where chosen
+    if ($this->filePath === null && $this->option('undo') === false && $this->option('validate') === false) {
+
+      // Show help screen
+      $this->call('help', [
+        'command_name' => $this->name,
+      ]);
+    }
   }
 
   /**
@@ -56,7 +67,7 @@ class MakeMigrationJsonCommand extends Command
   protected function makeJsonMigration()
   {
     // Set json file path
-    $this->filePath = $this->argument('filepath');
+    // $this->filePath = $this->argument('filepath');
 
     // Temp action
     $this->call('make:migration:schema', [
@@ -72,9 +83,7 @@ class MakeMigrationJsonCommand extends Command
    */
   protected function getArguments()
   {
-    return [
-      ['filepath', InputArgument::REQUIRED, 'The path of the JSON file containing the database schema'],
-    ];
+    return [];
   }
 
   /**
@@ -84,7 +93,12 @@ class MakeMigrationJsonCommand extends Command
    */
   protected function getOptions()
   {
-    // No options for now
-    return [];
+    // All available options
+    return [
+      ['file', null, InputOption::VALUE_OPTIONAL, 'The path of the JSON file containing the database schema', null],
+      ['validate', null, InputOption::VALUE_OPTIONAL, 'Validate schema in json file and report any problems', false],
+      ['undo', null, InputOption::VALUE_OPTIONAL, 'Undo and remove all files generated from last command', false],
+      ['allowundo', null, InputOption::VALUE_OPTIONAL, 'Create a undo file in the same directory of the source migration json file (this allows the undo option to work)', true],
+    ];
   }
 }
