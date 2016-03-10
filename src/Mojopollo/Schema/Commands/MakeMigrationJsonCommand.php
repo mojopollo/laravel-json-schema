@@ -58,6 +58,7 @@ class MakeMigrationJsonCommand extends Command
     // Set json file path
     $this->filePath = $this->argument('filepath');
 
+    // Temp action
     $this->call('make:migration:schema', [
       'name' => 'create_mojo_table'
       'schema' => 'pollo:string:unique'
