@@ -73,3 +73,15 @@ Migration created successfully.
 Model created successfully.
 Created Migration: 2016_03_04_242712_create_categories_table
 ```
+
+To undo and delete all files that where previously generated in the last command:
+
+```bash
+php artisan make:migration:json --undo
+```
+
+To validate your json file for valid syntax and schema. Note: this does not generate any files.
+
+```bash
+php artisan make:migration:json --file=migration.json --validate
+```
