@@ -96,16 +96,6 @@ php artisan make:migration:json --file=schema.json --disableundo
 
 This will prevent the creation of a undo file, example: ```schema.undo.json```
 
-#### Validation (Not yet available)
-
-To validate your json file for valid syntax and schema:
-
-```bash
-php artisan make:migration:json --file=schema.json --validate
-```
-
-Note: this does not generate any migration files and will just check if you misspelled any field schema definitions
-
 #### Pivot tables (Not yet available)
 
 If you need to generate a pivot table, you will use the keyword ```pivot``` as your table name, for example:
@@ -117,6 +107,16 @@ If you need to generate a pivot table, you will use the keyword ```pivot``` as y
 ```
 
 This will create a pivot table migration for the tables ```posts``` and ```tags```
+
+#### Validation (Not yet available)
+
+To validate your json file for valid syntax and schema:
+
+```bash
+php artisan make:migration:json --file=schema.json --validate
+```
+
+Note: this does not generate any migration files and will just check if you misspelled any field schema definitions
 
 <a id="json-file-examples"></a>
 ## JSON File Examples
@@ -150,7 +150,7 @@ Is the same as:
 #### Putting it all together
 
 You can now get crazy with defining your entire database schema and having the benefit of seeing it all in one file.
-As you have seen we can ```--undo``` to remove all previously generated files from last command then make edits to our JSON file,
+As you have seen we can ```--undo``` to remove all previously generated files from the last command then make edits to our JSON file,
 validate the syntax with ```--validate``` and then generate it all over again.
 One word: **WOW**. :)
 
