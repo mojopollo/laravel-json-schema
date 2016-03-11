@@ -1,5 +1,5 @@
 
-Laravel Database Schema in JSON
+Laravel Database Migrations from JSON
 ========================
 
 [![Build Status](https://travis-ci.org/mojopollo/laravel-json-schema.svg?branch=master)](https://travis-ci.org/mojopollo/laravel-json-schema)
