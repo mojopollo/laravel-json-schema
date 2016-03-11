@@ -150,7 +150,8 @@ Is the same as:
 #### Putting it all together
 
 You can now get crazy with defining your entire database schema and having the benefit of seeing it all in one file.
-As you have seen we can ```--undo``` then make edits to our JSON file, validate the syntax with ```--validate``` and then generate it all over again.
+As you have seen we can ```--undo``` to remove all previously generated files from last command then make edits to our JSON file,
+validate the syntax with ```--validate``` and then generate it all over again.
 One word: **WOW**. :)
 
 ```json
