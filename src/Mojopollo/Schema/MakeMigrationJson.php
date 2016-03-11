@@ -58,7 +58,13 @@ class MakeMigrationJson
         // Add to the schema array
         $schema[$migrationName][] = "{$fieldName}:{$fieldSchema}";
       }
+
+      // Join all fields for this migration in a single line
+      $schema[$migrationName] = implode(', ', $schema[$migrationName]);
     }
+
+    // Return final schema
+    return $schema;
   }
 
   /**

@@ -31,7 +31,7 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
     $this->makeMigrationJson = new MakeMigrationJson;
 
     // Set json file path
-    $this->jsonFilePath = 'tests/json/proposed-schema-structure-2.json';
+    $this->jsonFilePath = 'tests/json/test.json';
   }
 
   /**
@@ -72,9 +72,13 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
   public function testParseSchema(Array $jsonArray)
   {
     // Execute method
-    $results = $this->makeMigrationJson->jsonFileToArray($this->jsonFilePath);
+    $results = $this->makeMigrationJson->parseSchema($jsonArray);
 
-    fwrite(STDERR, print_r($results, true));
+    // Make sure we "users" got turned into "create_users_table" and has values
+    $this->assertFalse(empty($results['create_users_table']), '"users" was not converted to "create_users_table"');
+
+    // Make sure "remove_city_from_users_table" has been left intact
+    $this->assertTrue(isset($results['remove_city_from_users_table']), '"remove_city_from_users_table" should be in the json array but it is not set');
   }
 
 }
