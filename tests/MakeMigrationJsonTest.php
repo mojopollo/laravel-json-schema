@@ -49,15 +49,32 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
   /**
    * Test jsonFileToArray()
    *
-   * @return void
+   * @return array $jsonArray
    */
   public function testJsonFileToArray()
   {
     // Execute method
-    $contents = $this->makeMigrationJson->jsonFileToArray($this->jsonFilePath);
+    $jsonArray = $this->makeMigrationJson->jsonFileToArray($this->jsonFilePath);
 
     // Make sure contents are of type array
-    $this->assertTrue(is_array($contents), 'json file contents do not return an array');
+    $this->assertTrue(is_array($jsonArray), 'json file contents do not return an array');
+
+    // Return json array for more testing
+    return $jsonArray;
+  }
+
+  /**
+   * Test parseSchema()
+   *
+   * @depends testJsonFileToArray
+   * @return void
+   */
+  public function testParseSchema(Array $jsonArray)
+  {
+    // Execute method
+    $results = $this->makeMigrationJson->jsonFileToArray($this->jsonFilePath);
+
+    fwrite(STDERR, print_r($results, true));
   }
 
 }
