@@ -40,7 +40,7 @@ public function register()
 
 <a id="usage"></a>
 ## Usage
-Create your JSON schema file and save as ```migration.json``` for example:
+Create your JSON schema file and save as ```schema.json``` for example:
 
 ```json
 {
@@ -60,7 +60,7 @@ Create your JSON schema file and save as ```migration.json``` for example:
 You are now ready to generate all of your defined migrations with the following command and the path to your JSON file:
 
 ```bash
-php artisan make:migration:json --file=migration.json
+php artisan make:migration:json --file=schema.json
 ```
 
 After this command executes you will see all the newly created migration files
@@ -83,11 +83,11 @@ php artisan make:migration:json --undo
 If you prefer to not create a "undo file" in the same directory as the source json file, use the ```--disableundo``` option at the time of migration generation:
 
 ```bash
-php artisan make:migration:json --file=migration.json --disableundo
+php artisan make:migration:json --file=schema.json --disableundo
 ```
 
 To validate your json file for valid syntax and schema. Note: this does not generate any files.
 
 ```bash
-php artisan make:migration:json --file=migration.json --validate
+php artisan make:migration:json --file=schema.json --validate
 ```
