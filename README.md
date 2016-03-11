@@ -108,15 +108,15 @@ Note: this does not generate any migration files and will just check if you miss
 
 #### Pivot tables (Not yet available)
 
-If you need to generate a pivot table, separate your table names with the keyword ```:pivot:```, for example:
+If you need to generate a pivot table, you will use the keyword ```pivot``` as your table name, for example:
 
 ```json
 {
-  "tags:pivot:posts": null
+  "pivot": "posts:tags"
 }
 ```
 
-This will create a pivot table migration for the table ```tags``` and ```posts```
+This will create a pivot table migration for the tables ```posts``` and ```tags```
 
 <a id="json-file-examples"></a>
 ## JSON File Examples
@@ -150,7 +150,7 @@ Is the same as:
 #### Putting it all together
 
 You can now get crazy with defining your entire database schema and having the benefit of seeing it all in one file.
-As you have seen we can ```--undo```, then make edits to our JSON file, validate it with ```--validate``` and then generate it all over again.
+As you have seen we can ```--undo``` then make edits to our JSON file, validate the syntax with ```--validate``` and then generate it all over again.
 One word: **WOW**. :)
 
 ```json
@@ -165,6 +165,6 @@ One word: **WOW**. :)
   "remove_user_id_from_posts_table": {
     "name": "user_id:integer"
   },
-  "tags:pivot:posts": null
+  "pivot": "posts:tags"
 }
 ```
