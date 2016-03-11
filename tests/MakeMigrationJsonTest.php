@@ -81,4 +81,20 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
     $this->assertTrue(isset($results['remove_city_from_users_table']), '"remove_city_from_users_table" should be in the json array but it is not set');
   }
 
+  /**
+   * Test setMigrationName()
+   *
+   * @return void
+   */
+  public function testSetMigrationName()
+  {
+    // Make sure table names are converted into their proper migration name
+    $tableName = 'users';
+    $this->assertEquals($this->makeMigrationJson->setMigrationName($tableName), "create_{$tableName}_table");
+
+    // Make sure migration names are not converted
+    $tableName = 'remove_city_from_users_table';
+    $this->assertEquals($this->makeMigrationJson->setMigrationName($tableName), $tableName);
+  }
+
 }
