@@ -30,11 +30,21 @@ class MakeMigrationJsonCommand extends Command
   protected $filePath;
 
   /**
+   * MakeMigrationJson instance
+   *
+   * @var MakeMigrationJson
+   */
+  protected $makeMigrationJson;
+
+  /**
    * Create a new command instance.
    */
-  public function __construct()
+  public function __construct(MakeMigrationJson $makeMigrationJson)
   {
     parent::__construct();
+
+    // Set MakeMigrationJson instance
+    $this->makeMigrationJson = $makeMigrationJson;
   }
 
   /**
@@ -57,8 +67,6 @@ class MakeMigrationJsonCommand extends Command
         'command_name' => $this->name,
       ]);
     }
-
-    // $this->info(var_export($this->option('undo'), true));
   }
 
   /**
@@ -68,14 +76,23 @@ class MakeMigrationJsonCommand extends Command
    */
   protected function makeJsonMigration()
   {
-    // Set json file path
-    // $this->filePath = $this->argument('filepath');
+    // Get json array from file
+    $jsonArray = $this->makeMigrationJson->jsonFileToArray($this->filePath);
 
-    // Temp action
-    $this->call('make:migration:schema', [
-      'name' => 'create_cats_table',
-      '--schema' => 'paw:string:unique',
-    ]);
+    // Parse json and get schema
+    $schema = $this->makeMigrationJson->parseSchema($jsonArray);
+
+    // For every migration in the schema
+    foreach ($schema as $migrationName => $fieldSchema) {
+
+      // Invoke the extended generator command
+      $this->call('make:migration:schema', [
+        'name' => $migrationName,
+        '--schema' => $fieldSchema,
+      ]);
+    }
+
+    // $this->info(var_export($schema, true));
   }
 
   /**
