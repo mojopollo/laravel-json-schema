@@ -85,6 +85,22 @@ class MakeMigrationJsonCommand extends Command
     // For every migration in the schema
     foreach ($schema as $migrationName => $fieldSchema) {
 
+      // Check if this migration is a pivot table
+      if (substr($migrationName, -6) === '_pivot') {
+
+        // Get tables
+        $tables = explode(' ', $fieldSchema, 3);
+
+        // Invoke the extended generator command for pivot tables
+        $this->call('make:migration:pivot', [
+          'tableOne' => $tables[0],
+          'tableTwo' => $tables[1],
+        ]);
+
+        // Go to next migration
+        continue 1;
+      }
+
       // Invoke the extended generator command
       $this->call('make:migration:schema', [
         'name' => $migrationName,
