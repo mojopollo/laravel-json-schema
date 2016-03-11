@@ -13,6 +13,7 @@ This package makes use of Jeffrey Way's [Extended Generators](https://github.com
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [JSON File Examples](#json-file-examples)
 
 <a id="installation"></a>
 ## Installation
@@ -62,7 +63,7 @@ Create your JSON schema file and save as ```schema.json``` for example:
 
 #### Generate your migrations
 
-If you have your JSON file, you can now generate all your migrations, using the ```--file=``` option specify where your JSON file is located:
+If you have your JSON file, you can now generate all your migrations, using the ```--file=``` option to specify where the JSON file is located:
 
 ```bash
 php artisan make:migration:json --file=schema.json
@@ -104,3 +105,66 @@ php artisan make:migration:json --file=schema.json --validate
 ```
 
 Note: this does not generate any migration files and will just check if you misspelled any field schema definitions
+
+#### Pivot tables (Not yet available)
+
+If you need to generate a pivot table, separate your table names with the keyword ```:pivot:```, for example:
+
+```json
+{
+  "tags:pivot:posts": null
+}
+```
+
+This will create a pivot table migration for the table ```tags``` and ```posts```
+
+<a id="json-file-examples"></a>
+## JSON File Examples
+
+#### Using table names or migration names
+
+You can use table names or using a migration name that [Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended) will understand.
+
+For example:
+
+```json
+{
+  "users": {
+    "email": "string:unique",
+    "password": "string:index",
+  }
+}
+```
+
+Is the same as:
+
+```json
+{
+  "create_users_table": {
+    "email": "string:unique",
+    "password": "string:index",
+  }
+}
+```
+
+#### Putting it all together
+
+You can now get crazy with defining your entire database schema and having the benefit of seeing it all in one file.
+As you have seen we can ```--undo```, then make edits to our JSON file, validate it with ```--validate``` and then generate it all over again.
+One word: **WOW**. :)
+
+```json
+{
+  "users": {
+    "email": "string:unique",
+    "password": "string:index",
+  },
+  "create_cats_table": {
+    "name": "string:unique",
+  },
+  "remove_user_id_from_posts_table": {
+    "name": "user_id:integer",
+  },
+  "tags:pivot:posts": null,
+}
+```
