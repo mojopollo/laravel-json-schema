@@ -40,6 +40,9 @@ public function register()
 
 <a id="usage"></a>
 ## Usage
+
+#### Create your schema in JSON
+
 Create your JSON schema file and save as ```schema.json``` for example:
 
 ```json
@@ -57,7 +60,9 @@ Create your JSON schema file and save as ```schema.json``` for example:
 }
 ```
 
-You are now ready to generate all of your defined migrations with the following command and the path to your JSON file:
+#### Generate your migrations
+
+If you have your JSON file, you can now generate all your migrations, using the ```--file=``` option specify where your JSON file is located:
 
 ```bash
 php artisan make:migration:json --file=schema.json
@@ -74,6 +79,8 @@ Model created successfully.
 Created Migration: 2016_03_04_242712_create_categories_table
 ```
 
+#### How to undo (Not yet available)
+
 To undo and delete all files that where previously generated in the last command:
 
 ```bash
@@ -86,8 +93,14 @@ If you prefer to not create a "undo file" in the same directory as the source js
 php artisan make:migration:json --file=schema.json --disableundo
 ```
 
-To validate your json file for valid syntax and schema. Note: this does not generate any files.
+This will prevent the creation of a undo file, example: ```schema.undo.json```
+
+#### Validation (Not yet available)
+
+To validate your json file for valid syntax and schema:
 
 ```bash
 php artisan make:migration:json --file=schema.json --validate
 ```
+
+Note: this does not generate any migration files and will just check if you misspelled any field schema definitions
