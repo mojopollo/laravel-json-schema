@@ -18,5 +18,6 @@
   },
   "remove_city_from_users_table": {
     "city": "string:nullable"
-  }
+  },
+  "posts_tags_pivot": null
 }

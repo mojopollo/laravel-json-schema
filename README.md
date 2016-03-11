@@ -42,6 +42,7 @@ public function register()
 <a id="usage"></a>
 ## Usage
 
+
 #### Create your schema in JSON
 
 Create your JSON schema file and save as ```schema.json``` for example:
@@ -60,6 +61,7 @@ Create your JSON schema file and save as ```schema.json``` for example:
   }
 }
 ```
+
 
 #### Generate your migrations
 
@@ -80,6 +82,20 @@ Model created successfully.
 Created Migration: 2016_03_04_242712_create_categories_table
 ```
 
+
+#### Pivot tables
+
+If you need to generate a pivot table, you will append ```_pivot``` to your migration name, for example:
+
+```json
+{
+  "posts_tags_pivot": null
+}
+```
+
+This will create a pivot table migration for the tables ```posts``` and ```tags```
+
+
 #### How to undo (Not yet available)
 
 To undo and delete all files that where previously generated in the last command:
@@ -96,17 +112,6 @@ php artisan make:migration:json --file=schema.json --disableundo
 
 This will prevent the creation of a undo file, example: ```schema.undo.json```
 
-#### Pivot tables (Not yet available)
-
-If you need to generate a pivot table, you will use the keyword ```pivot``` as your table name, for example:
-
-```json
-{
-  "pivot": "posts:tags"
-}
-```
-
-This will create a pivot table migration for the tables ```posts``` and ```tags```
 
 #### Validation (Not yet available)
 
@@ -118,8 +123,10 @@ php artisan make:migration:json --file=schema.json --validate
 
 Note: this does not generate any migration files and will just check if you misspelled any field schema definitions
 
+
 <a id="json-file-examples"></a>
 ## JSON File Examples
+
 
 #### Using table names or migration names
 
@@ -147,6 +154,7 @@ Is the same as:
 }
 ```
 
+
 #### Putting it all together
 
 You can now get crazy with defining your entire database schema and having the benefit of seeing it all in one file.
@@ -166,6 +174,6 @@ One word: **WOW**. :)
   "remove_user_id_from_posts_table": {
     "name": "user_id:integer"
   },
-  "pivot": "posts:tags"
+  "posts_tags_pivot": null
 }
 ```

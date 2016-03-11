@@ -79,6 +79,12 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
 
     // Make sure "remove_city_from_users_table" has been left intact
     $this->assertTrue(isset($results['remove_city_from_users_table']), '"remove_city_from_users_table" should be in the json array but it is not set');
+
+    // Make sure our pivot test schema definition got correctly set
+    $this->assertTrue(isset($results['posts_tags_pivot']), 'migration "posts_tags_pivot" is missing');
+
+    // Make sure our pivot test schema definition has the table names properly parsed out
+    $this->assertEquals($results['posts_tags_pivot'], 'posts tags');
   }
 
   /**

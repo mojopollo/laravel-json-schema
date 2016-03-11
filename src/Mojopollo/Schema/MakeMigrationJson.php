@@ -52,6 +52,19 @@ class MakeMigrationJson
       // Set migration name / class name
       $migrationName = $this->setMigrationName($tableName);
 
+      // Check if this is a pivot table definition
+      if (substr($migrationName, -6) === '_pivot') {
+
+        // Get table names
+        $tables = explode('_', $migrationName, 3);
+
+        // Add to the schema array
+        $schema[$migrationName] = "{$tables[0]} {$tables[1]}";
+
+        // Go to next table
+        continue 1;
+      }
+
       // For every field
       foreach ($fields as $fieldName => $fieldSchema) {
 
@@ -76,8 +89,8 @@ class MakeMigrationJson
    */
   public function setMigrationName($tableName)
   {
-    // Check if "_table" is already supplied
-    if (strpos($tableName, '_table') !== false) {
+    // Check if "_table" is already supplied or if this is a "pivot" table
+    if (strpos($tableName, '_table') !== false || substr($tableName, -6) === '_pivot') {
 
       // Since the migration name has already been set, return it intact
       return $tableName;
