@@ -131,7 +131,7 @@ For example:
 {
   "users": {
     "email": "string:unique",
-    "password": "string:index",
+    "password": "string:index"
   }
 }
 ```
@@ -142,7 +142,7 @@ Is the same as:
 {
   "create_users_table": {
     "email": "string:unique",
-    "password": "string:index",
+    "password": "string:index"
   }
 }
 ```
@@ -157,14 +157,14 @@ One word: **WOW**. :)
 {
   "users": {
     "email": "string:unique",
-    "password": "string:index",
+    "password": "string:index"
   },
   "create_cats_table": {
-    "name": "string:unique",
+    "name": "string:unique"
   },
   "remove_user_id_from_posts_table": {
-    "name": "user_id:integer",
+    "name": "user_id:integer"
   },
-  "tags:pivot:posts": null,
+  "tags:pivot:posts": null
 }
 ```
