@@ -123,7 +123,7 @@ This will create a pivot table migration for the table ```tags``` and ```posts``
 
 #### Using table names or migration names
 
-You can use table names or using a migration name that [Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended) will understand.
+You can use table names or use a migration name that [Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended) will understand.
 
 For example:
 
