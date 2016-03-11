@@ -80,6 +80,12 @@ To undo and delete all files that where previously generated in the last command
 php artisan make:migration:json --undo
 ```
 
+If you prefer to not create a "undo file" in the same directory as the source json file, use the ```--disableundo``` option at the time of migration generation:
+
+```bash
+php artisan make:migration:json --file=migration.json --disableundo
+```
+
 To validate your json file for valid syntax and schema. Note: this does not generate any files.
 
 ```bash

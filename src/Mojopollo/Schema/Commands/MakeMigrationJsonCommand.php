@@ -100,7 +100,7 @@ class MakeMigrationJsonCommand extends Command
       ['file', null, InputOption::VALUE_OPTIONAL, 'The path of the JSON file containing the database schema', null],
       ['validate', null, InputOption::VALUE_NONE, 'Validate schema in json file and report any problems'],
       ['undo', null, InputOption::VALUE_NONE, 'Undo and remove all files generated from last command'],
-      ['allowundo', null, InputOption::VALUE_NONE, 'Create a undo file in the same directory of the source migration json file (this allows the undo option to work)'],
+      ['disableundo', null, InputOption::VALUE_NONE, 'Disables the creation of the undo file in the same directory of the source json file (the undo file allows the undo option to work)'],
     ];
   }
 }
