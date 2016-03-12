@@ -95,6 +95,16 @@ class MakeMigrationJsonCommand extends Command
       // Set undo file path
       $this->undoFilePath = $this->filePath . '.undo.json';
 
+      // If the undo option was invoked
+      if ($this->option('undo')) {
+
+        // Undo previous file generation
+        $this->undo();
+
+        // End method execution
+        return;
+      }
+
       // Generate the migrations
       $this->makeJsonMigration();
 
@@ -210,6 +220,48 @@ class MakeMigrationJsonCommand extends Command
 
       // Show error that file could not be created
       $this->error('Could not create undo file, not enough permissions perhaps?: ' . $this->undoFilePath);
+    }
+  }
+
+  /**
+   * Perform undo action
+   *
+   * @return void
+   */
+  protected function undo()
+  {
+    // Delete status
+    $deleteCompleted = true;
+
+    // Get files from the json undo file
+    $files = json_decode($this->filesystem->get($this->undoFilePath), true);
+
+    // For each file
+    $this->info('Deleting files:');
+    foreach ($files as $file) {
+
+      // If this file can be deleted
+      if ($this->filesystem->isWritable($file)) {
+
+        // Delete it
+        $this->filesystem->delete($file);
+        $this->info("  Deleted: {$file}");
+
+      } else {
+
+        // Set status
+        $deleteCompleted = false;
+
+        // Show error
+        $this->error('Could not delete: ' . $file);
+      }
+    }
+
+    // if the delete prccess finished successfully
+    if ($deleteCompleted) {
+
+      // Delete undo file
+      $this->filesystem->delete($this->undoFilePath);
     }
   }
 
