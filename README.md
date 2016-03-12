@@ -98,19 +98,19 @@ This will create a pivot table migration for the tables ```posts``` and ```tags`
 
 #### How to undo (Not yet available)
 
-To undo and delete all files that where previously generated in the last command:
+To undo and delete all files that where previously generated with the last command:
 
 ```bash
 php artisan make:migration:json --undo
 ```
 
-If you prefer to not create a "undo file" in the same directory as the source json file, use the ```--disableundo``` option at the time of migration generation:
+If you prefer not to create a "undo file" in the same directory as the source json file, use the ```--disableundo``` option at the time of migration generation:
 
 ```bash
 php artisan make:migration:json --file=schema.json --disableundo
 ```
 
-This will prevent the creation of a undo file, example: ```schema.undo.json```
+This will prevent the creation of a undo file, example: ```schema.json.undo.json```
 
 
 #### Validation (Not yet available)

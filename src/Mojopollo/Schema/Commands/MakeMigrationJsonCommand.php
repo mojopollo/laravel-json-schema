@@ -2,6 +2,7 @@
 namespace Mojopollo\Schema\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 use Mojopollo\Schema\MakeMigrationJson;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -23,13 +24,6 @@ class MakeMigrationJsonCommand extends Command
   protected $description = 'Create multiple migration classes from a single JSON file';
 
   /**
-   * The file path to the json file
-   *
-   * @var string
-   */
-  protected $filePath;
-
-  /**
    * MakeMigrationJson instance
    *
    * @var MakeMigrationJson
@@ -37,14 +31,52 @@ class MakeMigrationJsonCommand extends Command
   protected $makeMigrationJson;
 
   /**
+   * Filesystem instance
+   *
+   * @var Filesystem
+   */
+  protected $filesystem;
+
+  /**
+   * The file path to the json file
+   *
+   * @var string
+   */
+  protected $filePath;
+
+  /**
+   * The directory of the file path to the json file
+   *
+   * @var string
+   */
+  protected $filePathDirectory;
+
+  /**
+   * The file path to the json undo file
+   *
+   * @var string
+   */
+  protected $undoFilePath;
+
+  /**
+   * The timestamp when file generation started
+   *
+   * @var int
+   */
+  protected $startTime;
+
+  /**
    * Create a new command instance.
    */
-  public function __construct(MakeMigrationJson $makeMigrationJson)
+  public function __construct(MakeMigrationJson $makeMigrationJson, Filesystem $filesystem)
   {
     parent::__construct();
 
     // Set MakeMigrationJson instance
     $this->makeMigrationJson = $makeMigrationJson;
+
+    // Set Filesystem instance
+    $this->filesystem = $filesystem;
   }
 
   /**
@@ -54,9 +86,24 @@ class MakeMigrationJsonCommand extends Command
    */
   public function fire()
   {
-    // Make the json migration if file is specified
+    // If json file is specified
     if ($this->filePath = $this->option('file')) {
+
+      // Set file path directory
+      $this->filePathDirectory = dirname($this->filePath);
+
+      // Set undo file path
+      $this->undoFilePath = $this->filePath . '.undo.json';
+
+      // Generate the migrations
       $this->makeJsonMigration();
+
+      // If disableundo is not active
+      if ($this->option('disableundo') === false) {
+
+        // Create a undo file
+        $this->createUndoFile();
+      }
     }
 
     // If no action options where chosen
@@ -76,6 +123,9 @@ class MakeMigrationJsonCommand extends Command
    */
   protected function makeJsonMigration()
   {
+    // Set start time of file generation
+    $this->startTime = time();
+
     // Get json array from file
     $jsonArray = $this->makeMigrationJson->jsonFileToArray($this->filePath);
 
@@ -112,12 +162,65 @@ class MakeMigrationJsonCommand extends Command
   }
 
   /**
+   * Creates the undo file
+   *
+   * @return void
+   */
+  protected function createUndoFile()
+  {
+    // The generated files
+    $generatedFiles = [];
+
+    // Scan folders for generated files
+    foreach (['app', 'database/migrations'] as $folder) {
+
+      // For every file inside this folder
+      foreach ($this->filesystem->files($folder) as $file) {
+
+        // If lastModified time of this file is greater than $this->startTime
+        if ($this->filesystem->lastModified($file) >= $this->startTime) {
+
+          // Add this file to our generated files array
+          $generatedFiles[] = $file;
+        }
+      }
+    }
+
+    // If we do not have any generated files
+    if (empty($generatedFiles)) {
+
+      // Show error message and end method execution
+      $this->error('No generated files created');
+      return;
+    }
+
+    // Output generated files to console
+    $this->info("The following files have been created:")
+    foreach ($generatedFiles as $generatedFile) {
+      $this->info("  {$generatedFile}")
+    }
+
+    // Save $generatedFiles to undo file if directory is writeable
+    if ($this->filesystem->isWritable($this->filePathDirectory)) {
+
+      // Write undo json file
+      $this->filesystem->put($this->undoFilePath, json_encode($generatedFiles, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT));
+
+    } else {
+
+      // Show error that file could not be created
+      $this->error('Could not create undo file, not enough permissions perhaps?: ' . $this->undoFilePath);
+    }
+  }
+
+  /**
    * Get the console command arguments.
    *
    * @return array
    */
   protected function getArguments()
   {
+    // No arguments here
     return [];
   }
 
@@ -128,7 +231,7 @@ class MakeMigrationJsonCommand extends Command
    */
   protected function getOptions()
   {
-    // All available options
+    // Return all available options
     return [
       ['file', null, InputOption::VALUE_OPTIONAL, 'The path of the JSON file containing the database schema', null],
       ['validate', null, InputOption::VALUE_NONE, 'Validate schema in json file and report any problems'],
