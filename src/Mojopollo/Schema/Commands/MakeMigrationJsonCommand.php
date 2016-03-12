@@ -195,9 +195,9 @@ class MakeMigrationJsonCommand extends Command
     }
 
     // Output generated files to console
-    $this->info("The following files have been created:")
+    $this->info("The following files have been created:");
     foreach ($generatedFiles as $generatedFile) {
-      $this->info("  {$generatedFile}")
+      $this->info("  {$generatedFile}");
     }
 
     // Save $generatedFiles to undo file if directory is writeable
