@@ -289,7 +289,7 @@ class MakeMigrationJsonCommand extends Command
     if ($jsonArray === null) {
 
       // Display error message
-      $this->error('Invalid JSON detected: Check that your json file does not contain invalid syntax');
+      $this->error('Invalid JSON detected: Check that your json file does not contain invalid syntax: ' . $this->filePath);
 
       // End further execution
       return;
