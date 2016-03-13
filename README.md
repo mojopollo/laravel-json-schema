@@ -8,8 +8,9 @@ Laravel Database Migrations from JSON
 [![License](https://poser.pugx.org/mojopollo/laravel-json-schema/license)](https://packagist.org/packages/mojopollo/laravel-json-schema)
 [![Total Downloads](https://poser.pugx.org/mojopollo/laravel-json-schema/downloads)](https://packagist.org/packages/mojopollo/laravel-json-schema)
 
-Allows you to define your entire [Laravel](https://github.com/laravel/laravel) database schema in one JSON file then generates all the necessary migration files.
-This package makes use of Jeffrey Way's [Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended).
+Create all your migrations and models from one JSON schema file.
+This package allows you to define your entire [Laravel](https://github.com/laravel/laravel) database schema in one JSON file then generates all the necessary migration files.
+Makes use of Jeffrey Way's [Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended).
 
 - [Installation](#installation)
 - [Usage](#usage)

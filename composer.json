@@ -1,6 +1,6 @@
 {
   "name": "mojopollo/laravel-json-schema",
-  "description": "Laravel Database Schema in JSON: Allows you to define your entire Laravel database schema in one JSON file then generates all the necessary migration files",
+  "description": "Create all your migrations and models from one JSON schema file. Laravel Database Schema in JSON allows you to define your entire Laravel database schema in one JSON file then generates all the necessary migration files",
   "keywords": ["mojopollo", "mojo", "laravel", "json", "schema", "database", "laravel migrations from json"],
   "homepage": "http://localhost",
   "license" : "MIT",
