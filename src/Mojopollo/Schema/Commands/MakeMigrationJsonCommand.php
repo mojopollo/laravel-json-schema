@@ -105,6 +105,16 @@ class MakeMigrationJsonCommand extends Command
         return;
       }
 
+      // If the validate option was invoked
+      if ($this->option('validate')) {
+
+        // Validate the json file
+        $this->validate();
+
+        // End method execution
+        return;
+      }
+
       // Generate the migrations
       $this->makeJsonMigration();
 
@@ -262,6 +272,48 @@ class MakeMigrationJsonCommand extends Command
 
       // Delete undo file
       $this->filesystem->delete($this->undoFilePath);
+    }
+  }
+
+  /**
+   * Validate the json file and console report any issues
+   *
+   * @return void
+   */
+  protected function validate()
+  {
+    // Get json array from file
+    $jsonArray = $this->makeMigrationJson->jsonFileToArray($this->filePath);
+
+    // Validate
+    $errors = $this->makeMigrationJson->validateSchema($jsonArray);
+
+    // If no errors where found
+    if (empty($errors)) {
+
+      // Display confirmation message
+      $this->info('No validation errors where found, congrats!');
+
+      // End further execution
+      return;
+    }
+
+    // Report results
+    foreach ($errors as $tableName => $fields) {
+
+      // For every field
+      foreach ($fields as $fieldName => $fieldProperties) {
+
+        // For every field property
+        foreach ($fieldProperties as $property) {
+
+          // Show error
+          $this->error($property);
+
+          // Show json reference
+          $this->error("In section: " . json_encode([$tableName => [$fieldName => $jsonArray[$tableName][$fieldName]]], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        }
+      }
     }
   }
 
