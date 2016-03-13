@@ -127,6 +127,13 @@ class MakeMigrationJson
     // For every table
     foreach ($data as $tableName => $fields) {
 
+      // If there is no fields here do not continue
+      if (empty($fields)) {
+
+        // Go to next
+        continue 1;
+      }
+
       // For every field
       foreach ($fields as $fieldName => $fieldSchema) {
 

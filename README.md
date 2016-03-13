@@ -115,7 +115,7 @@ php artisan make:migration:json --file=schema.json --disableundo
 This will prevent the creation of a undo file, example: ```schema.json.undo.json```
 
 
-#### Validation (Not yet available)
+#### Validation
 
 To validate your json file for valid syntax and schema:
 

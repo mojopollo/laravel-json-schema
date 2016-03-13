@@ -147,6 +147,10 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
         'paws' => 'yesTheyHaveThemSometimes:index',
         'canines' => 'boolean',
       ],
+      'create_cats_table' => [
+        'hair' => 'boolean',
+      ],
+      'posts_tags_pivot' => null,
     ];
 
     // The paws section should come back with errors
