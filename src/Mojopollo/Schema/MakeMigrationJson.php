@@ -2,22 +2,34 @@
 namespace Mojopollo\Schema;
 
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Database\Schema\Blueprint;
 
 class MakeMigrationJson
 {
   /**
-   * The filesystem instance.
+   * The Filesystem instance.
    *
    * @var Filesystem
    */
   protected $filesystem;
 
   /**
+   * The Blueprint instance.
+   *
+   * @var Blueprint
+   */
+  protected $blueprint;
+
+  /**
    * New instance
    */
   public function __construct()
   {
+    // Instantiate Filesystem class
     $this->filesystem = new Filesystem;
+
+    // Instantiate Blueprint class
+    $this->blueprint = new Blueprint($table = 'idk_my_bff_jill');
   }
 
   /**
@@ -98,5 +110,58 @@ class MakeMigrationJson
 
     // Create migration name
     return "create_{$tableName}_table";
+  }
+
+  /**
+   * Validates the schema from the json array and returns an error of syntax errors if any are found
+   *
+   * @param  array $data  The array containing the json output from file
+   * @return array        Any errors identified for every field schema
+   * @see                 https://laravel.com/docs/5.2/migrations#creating-columns
+   */
+  public function validateSchema(Array $data)
+  {
+    // Error array
+    $errors = [];
+
+    // For every table
+    foreach ($data as $tableName => $fields) {
+
+      // For every field
+      foreach ($fields as $fieldName => $fieldSchema) {
+
+        // Split field schema
+        $fieldSchema = explode(':', $fieldSchema);
+
+        // Assign parts
+        $columnType = $fieldSchema[0];
+
+        // Check for valid column type
+        if ($this->isValidColumnType($columnType) === false) {
+
+          // Keep the json array structure and report error
+          $errors[$tableName][$fieldName]['columnType'] = 'Does not exist';
+        }
+
+        // TODO: Check for valid column modifiers
+        // example: nullable, first, after('column'), default($value), unsigned(), etc
+      }
+    }
+
+    // Return the erros array
+    return $errors;
+  }
+
+  /**
+   * Checks if supplied string argument is a valid column type
+   *
+   * @param  string  $type  Example: string, integer, text, timestamp, etc
+   * @return boolean        Returns true if valid, otherwise false
+   * @see                   https://laravel.com/docs/5.2/migrations#creating-columns
+   */
+  public function isValidColumnType($type)
+  {
+    // Check if this is a valid method in the Blueprint class
+    return method_exists($this->blueprint, $type);
   }
 }

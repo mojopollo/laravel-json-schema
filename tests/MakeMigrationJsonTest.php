@@ -103,4 +103,25 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
     $this->assertEquals($this->makeMigrationJson->setMigrationName($tableName), $tableName);
   }
 
+  /**
+   * Test isValidColumnType()
+   *
+   * @return void
+   */
+  public function testIsValidColumnType()
+  {
+    // The following column type should fail
+    $this->assertFalse($this->makeMigrationJson->isValidColumnType('purpleRain'), 'purpleRain() should not be a valid column type');
+  }
+
+  // /**
+  //  * Test validateSchema()
+  //  *
+  //  * @return void
+  //  */
+  // public function testValidateSchema()
+  // {
+  //   // The following schema
+  // }
+
 }
