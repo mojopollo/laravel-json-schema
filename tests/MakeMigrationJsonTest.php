@@ -111,7 +111,26 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
   public function testIsValidColumnType()
   {
     // The following column type should fail
-    $this->assertFalse($this->makeMigrationJson->isValidColumnType('purpleRain'), 'purpleRain() should not be a valid column type');
+    $types = [
+      'purpleRain',
+      'masterBlaster',
+    ];
+    foreach ($types as $type) {
+      $this->assertFalse($this->makeMigrationJson->isValidColumnType($type), "'{$type}' should not be a valid column type");
+    }
+
+    // The following column types should pass
+    $types = [
+      'string',
+      'integer',
+      'bigInteger',
+      'morphs',
+      'mediumText',
+      'timestamp',
+    ];
+    foreach ($types as $type) {
+      $this->assertTrue($this->makeMigrationJson->isValidColumnType($type), "'{$type}' should be a valid column type");
+    }
   }
 
   // /**
