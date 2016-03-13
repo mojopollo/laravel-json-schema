@@ -285,6 +285,26 @@ class MakeMigrationJsonCommand extends Command
     // Get json array from file
     $jsonArray = $this->makeMigrationJson->jsonFileToArray($this->filePath);
 
+    // Check for invalid json
+    if ($jsonArray === null) {
+
+      // Display error message
+      $this->error('Invalid JSON detected: Check that your json file does not contain invalid syntax');
+
+      // End further execution
+      return;
+    }
+
+    // Check for data existence
+    if (empty($jsonArray)) {
+
+      // Display error message
+      $this->error('No data found in json file: It seems you have no data in: ' . $this->filePath);
+
+      // End further execution
+      return;
+    }
+
     // Validate
     $errors = $this->makeMigrationJson->validateSchema($jsonArray);
 
