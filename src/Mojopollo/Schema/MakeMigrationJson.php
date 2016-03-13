@@ -140,7 +140,7 @@ class MakeMigrationJson
         if ($this->isValidColumnType($columnType) === false) {
 
           // Keep the json array structure and report error
-          $errors[$tableName][$fieldName]['columnType'] = 'Does not exist';
+          $errors[$tableName][$fieldName]['columnType'] = "'{$fieldName}' is not a valid column type";
         }
 
         // TODO: Check for valid column modifiers

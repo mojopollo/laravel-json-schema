@@ -133,14 +133,25 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
     }
   }
 
-  // /**
-  //  * Test validateSchema()
-  //  *
-  //  * @return void
-  //  */
-  // public function testValidateSchema()
-  // {
-  //   // The following schema
-  // }
+  /**
+   * Test validateSchema()
+   *
+   * @return void
+   */
+  public function testValidateSchema()
+  {
+    // Set the json array schema
+    $schemaArray = [
+      'dogs' => [
+        'name' => 'string:unique',
+        'paws' => 'yesTheyHaveThemSometimes:index',
+        'canines' => 'boolean',
+      ],
+    ];
+
+    // The paws section should come back with errors
+    $errors = $this->makeMigrationJson->validateSchema($schemaArray);
+    $this->assertTrue(isset($errors['dogs']['paws']), 'columnType test: "paws" was supposed to come back with errors: ' . json_encode($errors));
+  }
 
 }
