@@ -146,6 +146,7 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
         'name' => 'string:unique',
         'paws' => 'yesTheyHaveThemSometimes:index',
         'canines' => 'boolean',
+        'hair' => 'string(50):index',
       ],
       'create_cats_table' => [
         'hair' => 'boolean',
@@ -153,9 +154,14 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
       'posts_tags_pivot' => null,
     ];
 
-    // The paws section should come back with errors
+    // Validate schema
     $errors = $this->makeMigrationJson->validateSchema($schemaArray);
+
+    // The 'paws' section should come back with errors
     $this->assertTrue(isset($errors['dogs']['paws']), 'columnType test: "paws" was supposed to come back with errors: ' . json_encode($errors));
+
+    // The 'hair' section should not come back with errors because of its optional column type parameters
+    $this->assertFalse(isset($errors['dogs']['hair']), 'columnType test: "hair:string(50):index" should be allowed to be validated as a "string" and not as a "string(50)": ');
   }
 
 }

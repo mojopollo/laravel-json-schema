@@ -141,7 +141,7 @@ class MakeMigrationJson
         $fieldSchema = explode(':', $fieldSchema);
 
         // Assign parts
-        $columnType = $fieldSchema[0];
+        $columnType = $this->parseColumnType($fieldSchema[0]);
 
         // Check for valid column type
         if ($this->isValidColumnType($columnType) === false) {
@@ -157,6 +157,23 @@ class MakeMigrationJson
 
     // Return the erros array
     return $errors;
+  }
+
+  /**
+   * Parse column type from string
+   * in this method, "string" and "string(50)" should both return as "string"
+   *
+   * @param  string $type  Example: "string", "string(50)", etc
+   * @return string        the parsed column type name
+   */
+  public function parseColumnType($type)
+  {
+    // Remove any parameters to this column type
+    $type = explode('(', $type);
+    $type = trim($type[0]);
+
+    // Return column type
+    return $type;
   }
 
   /**
