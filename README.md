@@ -14,6 +14,11 @@ Makes use of Jeffrey Way's [Extended Generators](https://github.com/laracasts/La
 
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Create your schema in JSON](#usage-create)
+  - [Generate your migrations](#usage-generate)
+  - [Pivot tables](#usage-pivot)
+  - [Undo](#usage-undo)
+  - [Validation](#usage-validation)
 - [JSON File Examples](#json-file-examples)
 
 <a id="installation"></a>
@@ -44,6 +49,7 @@ public function register()
 ## Usage
 
 
+<a id="usage-create"></a>
 #### Create your schema in JSON
 
 Create your JSON schema file and save as ```schema.json``` for example:
@@ -64,6 +70,7 @@ Create your JSON schema file and save as ```schema.json``` for example:
 ```
 
 
+<a id="usage-generate"></a>
 #### Generate your migrations
 
 If you have your JSON file, you can now generate all your migrations, using the ```--file=``` option to specify where the JSON file is located:
@@ -84,6 +91,7 @@ Created Migration: 2016_03_04_242712_create_categories_table
 ```
 
 
+<a id="usage-pivot"></a>
 #### Pivot tables
 
 If you need to generate a pivot table, you will append ```_pivot``` to your migration name, for example:
@@ -97,6 +105,7 @@ If you need to generate a pivot table, you will append ```_pivot``` to your migr
 This will create a pivot table migration for the tables ```posts``` and ```tags```
 
 
+<a id="usage-undo"></a>
 #### Undo
 
 To undo and delete all files that where previously generated with the json file that was used, example:
@@ -116,9 +125,10 @@ php artisan make:migration:json --file=schema.json --disableundo
 This will prevent the creation of a undo file, example: ```schema.json.undo.json```
 
 
+<a id="usage-validation"></a>
 #### Validation
 
-To check your json file for valid json syntax, actual data being there and schema validation (column type definitions and column type modifiers checks):
+To check your json file for valid json syntax and schema validation (column type definitions and column type modifiers checks):
 
 ```bash
 php artisan make:migration:json --file=schema.json --validate
