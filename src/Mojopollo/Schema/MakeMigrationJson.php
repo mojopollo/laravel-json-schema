@@ -236,7 +236,7 @@ class MakeMigrationJson
   public function getColumnModifiers()
   {
     // Create reflection class for MySqlGrammar
-    $class = new \ReflectionClass(MySqlGrammar::class);
+    $class = new \ReflectionClass(new MySqlGrammar);
 
     // Get our protected modifiers property
     $property = $class->getProperty('modifiers');
