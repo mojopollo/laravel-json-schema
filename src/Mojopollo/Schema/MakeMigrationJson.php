@@ -119,11 +119,15 @@ class MakeMigrationJson
    * @param  array $data  The array containing the json output from file
    * @return array        Any errors identified for every field schema
    * @see                 https://laravel.com/docs/5.2/migrations#creating-columns
+   * @see                 https://laravel.com/docs/5.2/migrations#creating-indexes
    */
   public function validateSchema(Array $data)
   {
     // Error array
     $errors = [];
+
+    // Get allowed column modifiers and indexes
+    $validModifiersAndIndexes = array_merge($this->getColumnIndexes(), $this->getColumnModifiers());
 
     // For every table
     foreach ($data as $tableName => $fields) {
@@ -141,8 +145,12 @@ class MakeMigrationJson
         // Split field schema
         $fieldSchema = explode(':', $fieldSchema);
 
-        // Assign parts
-        $columnType = $this->parseColumnType($fieldSchema[0]);
+        // Assign column type
+        $columnType = $this->parseProperty($fieldSchema[0]);
+
+        // Assign all modifiers and indexes
+        // only if there is a count of 2 or more
+        $columnModifiersAndIndexes = count($fieldSchema) > 1 ? array_slice($fieldSchema, 1) : [];
 
         // Check for valid column type
         if ($this->isValidColumnType($columnType) === false) {
@@ -151,8 +159,17 @@ class MakeMigrationJson
           $errors[$tableName][$fieldName]['columnType'] = "'{$columnType}' is not a valid column type";
         }
 
-        // TODO: Check for valid column modifiers
-        // example: nullable, first, after('column'), default($value), unsigned(), etc
+        // Check for valid column modifiers
+        foreach ($columnModifiersAndIndexes as $modifierOrIndex) {
+
+          // If this $modifierOrIndex is not in our $validModifiersAndIndexes array
+          // report error
+          if ( ! in_array($this->parseProperty($modifierOrIndex), $validModifiersAndIndexes)) {
+
+            // Keep the json array structure and report error
+            $errors[$tableName][$fieldName]['columnModifier'] = "'{$modifierOrIndex}' is not a valid column modifier";
+          }
+        }
       }
     }
 
@@ -161,13 +178,13 @@ class MakeMigrationJson
   }
 
   /**
-   * Parse column type from string
+   * Parses the property without the parameters
    * in this method, "string" and "string(50)" should both return as "string"
    *
    * @param  string $type  Example: "string", "string(50)", etc
    * @return string        the parsed column type name
    */
-  public function parseColumnType($type)
+  public function parseProperty($type)
   {
     // Remove any parameters to this column type
     $type = explode('(', $type);
@@ -206,7 +223,7 @@ class MakeMigrationJson
   /**
    * Get an array of column modifiers from the MySqlGrammar::modifiers property
    *
-   * @return array  Example: unsigned, charset. collate ...
+   * @return array  Example: unsigned, charset, collate, ...
    */
   public function getColumnModifiers()
   {
@@ -219,7 +236,7 @@ class MakeMigrationJson
     // Set properties to be publicly accessible
     $property->setAccessible(true);
 
-    // Return modifiers array in lowercase
+    // Return MySqlGrammar::modifiers array in lowercase
     return array_map('strtolower', $property->getValue(new MySqlGrammar));;
   }
 }

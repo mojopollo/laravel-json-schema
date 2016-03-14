@@ -147,21 +147,29 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
         'paws' => 'yesTheyHaveThemSometimes:index',
         'canines' => 'boolean',
         'hair' => 'string(50):index',
+        'ears_invalid' => 'string:thisIsMyInvalidModifier',
+        'ears_valid' => "string:after('id')",
       ],
       'create_cats_table' => [
         'hair' => 'boolean',
       ],
       'posts_tags_pivot' => null,
     ];
-fwrite(STDERR, print_r($this->makeMigrationJson->getColumnModifiers(), true));
+
     // Validate schema
     $errors = $this->makeMigrationJson->validateSchema($schemaArray);
 
-    // The 'paws' section should come back with errors
-    $this->assertTrue(isset($errors['dogs']['paws']), 'columnType test: "paws" was supposed to come back with errors: ' . json_encode($errors));
+    // The 'paws' section should come back with invalid column type error
+    $this->assertTrue(isset($errors['dogs']['paws']['columnType']), 'columnType test: "paws" was supposed to come back with a column type error, instead we got: ' . json_encode($errors));
+
+    // The 'ears_invalid' section should come back with invalid column type error
+    $this->assertTrue(isset($errors['dogs']['ears_invalid']['columnModifier']), 'columnModifier test: "ears_invalid" was supposed to come back with a column modifier error, instead we got: ' . json_encode($errors));
 
     // The 'hair' section should not come back with errors because of its optional column type parameters
     $this->assertFalse(isset($errors['dogs']['hair']), 'columnType test: "hair:string(50):index" should be allowed to be validated as a "string" and not as a "string(50)": ');
+
+    // The 'ears_valid' section should not come back with errors because it is a valid column modifier or index
+    $this->assertFalse(isset($errors['dogs']['ears_valid']), 'columnType test: The "ears_valid" section should not come back with errors because it is a valid column modifier or indes');
   }
 
 }
