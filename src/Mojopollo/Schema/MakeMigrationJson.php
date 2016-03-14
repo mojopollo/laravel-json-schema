@@ -212,12 +212,20 @@ class MakeMigrationJson
    *
    * @return array  list of the possible column indexes
    * @see           https://laravel.com/docs/5.2/migrations#creating-indexes
-   * @see           vendor/illuminate/database/Schema/Blueprint.php  addFluentIndexes()
+   * @see           vendor/illuminate/database/Schema/Blueprint.php @ addFluentIndexes()
+   * @see           https://github.com/laracasts/Laravel-5-Generators-Extended#user-content-foreign-constraints
    */
   public function getColumnIndexes()
   {
+    // Set column indexes from the laravel class
+    $indexes = ['primary', 'unique', 'index'];
+
+    // Add the extended generators foreign keyword "sugar"
+    // https://github.com/laracasts/Laravel-5-Generators-Extended#user-content-foreign-constraints
+    $indexes[] = 'foreign';
+
     // Return column indexes
-    return ['primary', 'unique', 'index'];
+    return $indexes;
   }
 
   /**
