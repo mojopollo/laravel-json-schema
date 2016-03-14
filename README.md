@@ -118,7 +118,7 @@ This will prevent the creation of a undo file, example: ```schema.json.undo.json
 
 #### Validation
 
-To validate your json file for valid syntax and schema:
+To check your json file for valid json syntax, actual data being there and schema validation (column type definitions and column type modifiers checks):
 
 ```bash
 php artisan make:migration:json --file=schema.json --validate
