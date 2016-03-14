@@ -197,7 +197,7 @@ class MakeMigrationJsonCommand extends Command
       // For every file inside this folder
       foreach ($this->filesystem->files($folder) as $file) {
 
-        // If lastModified time of this file is greater than $this->startTime
+        // If lastModified time of this file is greater or equal to $this->startTime
         if ($this->filesystem->lastModified($file) >= $this->startTime) {
 
           // Add this file to our generated files array
