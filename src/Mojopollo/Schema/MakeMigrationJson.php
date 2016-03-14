@@ -52,15 +52,27 @@ class MakeMigrationJson
    * Parses the schema from the json array into a readable format laravel generators extended understand
    *
    * @param  array $data  The array containing the json output from file
+   * @param  array $only  (optional) The array containing only the specific table/migration names to retrieve from the json file
    * @return array        The finished parsed schema for use with generators extended
    */
-  public function parseSchema(Array $data)
+  public function parseSchema(Array $data, Array $only = [])
   {
     // Final schema
     $schema = [];
 
     // For every table
     foreach ($data as $tableName => $fields) {
+
+      // If the --only option was used
+      if ( ! empty($only)) {
+
+        // If this tableName is not existing in the only array
+        if ( ! in_array($tableName, $only)) {
+
+        // Go to next table
+        continue 1;
+        }
+      }
 
       // Set migration name / class name
       $migrationName = $this->setMigrationName($tableName);
@@ -220,7 +232,7 @@ class MakeMigrationJson
     // Set column indexes from the laravel class
     $indexes = ['primary', 'unique', 'index'];
 
-    // Add the extended generators foreign keyword "sugar"
+    // Add the extended generators foreign keyword "bit of sugar"
     // https://github.com/laracasts/Laravel-5-Generators-Extended#user-content-foreign-constraints
     $indexes[] = 'foreign';
 
