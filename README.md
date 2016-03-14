@@ -192,12 +192,15 @@ One word: **WOW**. :)
     "email": "string:unique",
     "password": "string:index"
   },
+
   "create_cats_table": {
     "name": "string:unique"
   },
+
   "remove_user_id_from_posts_table": {
     "name": "user_id:integer"
   },
+
   "posts_tags_pivot": null
 }
 ```
