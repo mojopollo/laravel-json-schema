@@ -133,7 +133,7 @@ If you prefer not to create a "undo file" in the same directory as the source js
 php artisan make:migration:json --file=schema.json --disableundo
 ```
 
-This will prevent the creation of a undo file, example: ```schema.json.undo.json```
+This will prevent the creation of a undo file.
 
 
 <a id="usage-validation"></a>
