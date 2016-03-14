@@ -3,6 +3,7 @@ namespace Mojopollo\Schema;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Grammars\MySqlGrammar;
 
 class MakeMigrationJson
 {
@@ -187,5 +188,38 @@ class MakeMigrationJson
   {
     // Check if this is a valid method in the Blueprint class
     return method_exists($this->blueprint, $type);
+  }
+
+  /**
+   * Get an array of valid column indexes
+   *
+   * @return array  list of the possible column indexes
+   * @see           https://laravel.com/docs/5.2/migrations#creating-indexes
+   * @see           vendor/illuminate/database/Schema/Blueprint.php  addFluentIndexes()
+   */
+  public function getColumnIndexes()
+  {
+    // Return column indexes
+    return ['primary', 'unique', 'index'];
+  }
+
+  /**
+   * Get an array of column modifiers from the MySqlGrammar::modifiers property
+   *
+   * @return array  Example: unsigned, charset. collate ...
+   */
+  public function getColumnModifiers()
+  {
+    // Create reflection class for MySqlGrammar
+    $class = new \ReflectionClass(MySqlGrammar::class);
+
+    // Get our protected modifiers property
+    $property = $class->getProperty('modifiers');
+
+    // Set properties to be publicly accessible
+    $property->setAccessible(true);
+
+    // Return modifiers array in lowercase
+    return array_map('strtolower', $property->getValue(new MySqlGrammar));;
   }
 }

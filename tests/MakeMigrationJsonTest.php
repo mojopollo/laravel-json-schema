@@ -153,7 +153,7 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
       ],
       'posts_tags_pivot' => null,
     ];
-
+fwrite(STDERR, print_r($this->makeMigrationJson->getColumnModifiers(), true));
     // Validate schema
     $errors = $this->makeMigrationJson->validateSchema($schemaArray);
 
