@@ -149,8 +149,15 @@ class MakeMigrationJsonCommand extends Command
     // Get json array from file
     $jsonArray = $this->makeMigrationJson->jsonFileToArray($this->filePath);
 
+    // Parse only option
+    $only = [];
+    if ( ! empty($this->option('only'))) {
+      $only = explode(',', $this->option('only'));
+      $only = array_map('trim', $only);
+    }
+
     // Parse json and get schema
-    $schema = $this->makeMigrationJson->parseSchema($jsonArray);
+    $schema = $this->makeMigrationJson->parseSchema($jsonArray, $only);
 
     // For every migration in the schema
     foreach ($schema as $migrationName => $fieldSchema) {
@@ -358,6 +365,7 @@ class MakeMigrationJsonCommand extends Command
     // Return all available options
     return [
       ['file', null, InputOption::VALUE_OPTIONAL, 'The path of the JSON file containing the database schema', null],
+      ['only', null, InputOption::VALUE_OPTIONAL, 'The specific table/migration name that you need extracted, example: --only=cats,birds', null],
       ['validate', null, InputOption::VALUE_NONE, 'Validate schema in json file and report any problems'],
       ['undo', null, InputOption::VALUE_NONE, 'Undo and remove all files generated from last command'],
       ['disableundo', null, InputOption::VALUE_NONE, 'Disables the creation of the undo file in the same directory of the source json file (the undo file allows the undo option to work)'],

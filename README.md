@@ -93,6 +93,14 @@ The following files have been created:
   database/migrations/2016_03_13_231728_create_tags_table.php
 ```
 
+If you have a extensive long schema json file and want to only generate specific tables or migrations from the schema, you would do the following:
+
+```bash
+php artisan make:migration:json --file=schema.json --only=categories,tags
+```
+
+In the above example, the tables or migrations named "categories" and "tags" will be generated and all other tables/migrations will be ignored.
+
 
 <a id="usage-pivot"></a>
 #### Pivot tables

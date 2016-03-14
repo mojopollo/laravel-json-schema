@@ -88,6 +88,45 @@ class MakeMigrationJsonTest extends \PHPUnit_Framework_TestCase
   }
 
   /**
+   * Test parseSchema() with $only parameter
+   *
+   * @return void
+   */
+  public function testParseSchemaWithOnlyParameter()
+  {
+    // Set json array
+    $jsonArray = [
+      'dogs' => [
+        'field1' => 'schema1',
+      ],
+      'cats' => [
+        'field1' => 'schema1',
+      ],
+      'birds' => [
+        'field1' => 'schema1',
+      ],
+    ];
+
+    // Set only array
+    $only = [
+      'cats',
+      'birds'
+    ];
+
+    // Execute method
+    $results = $this->makeMigrationJson->parseSchema($jsonArray, $only);
+
+    // Expected results
+    $expected = [
+      'create_cats_table' => 'field1:schema1',
+      'create_birds_table' => 'field1:schema1',
+    ];
+
+    // We should only get back cats and birds
+    $this->assertEquals($results, $expected);
+  }
+
+  /**
    * Test setMigrationName()
    *
    * @return void
