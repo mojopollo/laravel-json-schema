@@ -79,15 +79,18 @@ If you have your JSON file, you can now generate all your migrations, using the 
 php artisan make:migration:json --file=schema.json
 ```
 
-After this command executes you will see all the newly created migration files
+After this command executes you will see all the newly created migration files, example:
 
 ```bash
+Model created successfully.
 Migration created successfully.
 Model created successfully.
-Created Migration: 2016_03_04_231601_create_users_table
 Migration created successfully.
-Model created successfully.
-Created Migration: 2016_03_04_242712_create_categories_table
+The following files have been created:
+  app/CartItem.php
+  app/Category.php
+  database/migrations/2016_03_13_231727_create_categories_table.php
+  database/migrations/2016_03_13_231728_create_tags_table.php
 ```
 
 
@@ -114,7 +117,15 @@ To undo and delete all files that where previously generated with the json file 
 php artisan make:migration:json --file=schema.json --undo
 ```
 
-What this will do is look for the ```schema.json.undo.json``` file and remove all files that where generated.
+What this will do is look for the ```schema.json.undo.json``` file and remove all files that where generated, example:
+
+```bash
+Deleting files:
+  Deleted: app/CartItem.php
+  Deleted: app/Category.php
+  Deleted: database/migrations/2016_03_13_231727_create_categories_table.php
+  Deleted: database/migrations/2016_03_13_231728_create_tags_table.php
+```
 
 If you prefer not to create a "undo file" in the same directory as the source json file, use the ```--disableundo``` option at the time of migration generation:
 
