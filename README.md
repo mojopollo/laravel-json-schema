@@ -79,7 +79,7 @@ If you have your JSON file, you can now generate all your migrations, using the 
 php artisan make:migration:json --file=schema.json
 ```
 
-After this command executes you will see all the newly created migration files, example:
+After this command executes you will see all the newly created migration files, example output:
 
 ```bash
 Model created successfully.
@@ -117,7 +117,7 @@ To undo and delete all files that where previously generated with the json file 
 php artisan make:migration:json --file=schema.json --undo
 ```
 
-What this will do is look for the ```schema.json.undo.json``` file and remove all files that where generated, example:
+What this will do is look for the ```schema.json.undo.json``` file if it exists, read the contents and remove all files that where generated, example output:
 
 ```bash
 Deleting files:
