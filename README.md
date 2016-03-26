@@ -1,7 +1,6 @@
 
 JSON database schema for Laravel
 ========================
-
 [![Build Status](https://travis-ci.org/mojopollo/laravel-json-schema.svg?branch=master)](https://travis-ci.org/mojopollo/laravel-json-schema)
 [![Latest Stable Version](https://poser.pugx.org/mojopollo/laravel-json-schema/v/stable)](https://packagist.org/packages/mojopollo/laravel-json-schema)
 [![Latest Unstable Version](https://poser.pugx.org/mojopollo/laravel-json-schema/v/unstable)](https://packagist.org/packages/mojopollo/laravel-json-schema)
@@ -11,6 +10,8 @@ JSON database schema for Laravel
 Create all your migrations and models from one JSON schema file.
 This package allows you to define your entire [Laravel](https://github.com/laravel/laravel) database schema in one JSON file then generates all the necessary migration files.
 Makes use of Jeffrey Way's [Extended Generators](https://github.com/laracasts/Laravel-5-Generators-Extended).
+
+![preview-01](https://cloud.githubusercontent.com/assets/1254915/14058470/9834f110-f2de-11e5-9c50-4ceffa0c9f88.jpg)
 
 - [Installation](#installation)
 - [Usage](#usage)
