@@ -35,7 +35,7 @@ composer require mojopollo/laravel-json-schema --dev
 
 #### Step 2: Add the service providers
 
-Add the following 2 service providers to your local enviroment only, by modifying your ```app/Providers/AppServiceProvider.php``` as so:
+Add the following 2 service providers to your local environment only, by modifying your ```app/Providers/AppServiceProvider.php``` as so:
 ```php
 public function register()
 {
