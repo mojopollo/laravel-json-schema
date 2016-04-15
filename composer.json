@@ -21,8 +21,8 @@
     "phpunit/phpunit": "4.7.*"
   },
   "autoload": {
-    "psr-0": {
-      "Mojopollo\\Schema\\": "src"
+    "psr-4": {
+      "Mojopollo\\Schema\\": "src/"
     }
   },
   "minimum-stability": "stable"
