@@ -19,8 +19,8 @@
         <whitelist>
             <directory suffix=".php">./src</directory>
             <exclude>
-                <file>./src/Mojopollo/Schema/MakeMigrationJsonServiceProvider.php</file>
-                <file>./src/Mojopollo/Schema/Commands/MakeMigrationJsonCommand.php</file>
+                <file>./src/MakeMigrationJsonServiceProvider.php</file>
+                <file>./src/Commands/MakeMigrationJsonCommand.php</file>
                 <directory>./vendor</directory>
                 <directory>./tests</directory>
             </exclude>
