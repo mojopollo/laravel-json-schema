@@ -40,10 +40,10 @@ Add the following 2 service providers to your local environment only, by modifyi
 ```php
 public function register()
 {
-  if ($this->app->environment() == 'local') {
-    $this->app->register('Mojopollo\Schema\MakeMigrationJsonServiceProvider');
-    $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
-  }
+    if ($this->app->environment() == 'local') {
+        $this->app->register('Mojopollo\Schema\MakeMigrationJsonServiceProvider');
+        $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
+    }
 }
 ```
 
