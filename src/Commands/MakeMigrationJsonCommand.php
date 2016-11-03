@@ -176,6 +176,9 @@ class MakeMigrationJsonCommand extends Command
                 'name' => $migrationName,
                 '--schema' => $fieldSchema,
             ]);
+
+            // wait 1 second in-between schemas to run the insequence later with "php artisan migrate"
+            sleep(1);
         }
     // $this->info(var_export($schema, true));
     }
