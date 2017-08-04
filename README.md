@@ -27,7 +27,10 @@ Makes use of Jeffrey Way's [Extended Generators](https://github.com/laracasts/La
 <a id="versions"></a>
 ## Versions
 
-For Laravel 5.4.x and above use laravel-json-schema tag 5.4.x
+For Laravel 5.4.x and above use laravel-json-schema tag 5.4.x. You might need to set your composer.json minimum-stability to `dev` :
+```
+"minimum-stability": "dev"
+```
 
 For Laravel 5.3.x and below use laravel-json-schema tag 1.x.x
 
