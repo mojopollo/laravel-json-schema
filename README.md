@@ -14,6 +14,7 @@ Makes use of Jeffrey Way's [Extended Generators](https://github.com/laracasts/La
 
 ![preview-01](https://cloud.githubusercontent.com/assets/1254915/14058470/9834f110-f2de-11e5-9c50-4ceffa0c9f88.jpg)
 
+- [Versions](#versions)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Create your schema in JSON](#usage-create)
@@ -22,6 +23,13 @@ Makes use of Jeffrey Way's [Extended Generators](https://github.com/laracasts/La
   - [Undo](#usage-undo)
   - [Validation](#usage-validation)
 - [JSON File Examples](#json-file-examples)
+
+<a id="versions"></a>
+## Versions
+
+For Laravel 5.4.x and above use laravel-json-schema tag 5.4.x
+
+For Laravel 5.3.x and below use laravel-json-schema tag 1.x.x
 
 <a id="installation"></a>
 ## Installation
