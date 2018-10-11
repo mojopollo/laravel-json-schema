@@ -78,6 +78,16 @@ class MakeMigrationJsonCommand extends Command
         // Set Filesystem instance
         $this->filesystem = $filesystem;
     }
+    
+    /**
+     * Laravel 5.6 commands must be called from handle method.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        return $this->fire();   
+    }
 
     /**
     * Execute the console command.
